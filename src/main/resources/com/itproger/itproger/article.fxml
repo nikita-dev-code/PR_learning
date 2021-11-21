@@ -17,5 +17,10 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <Label fx:id="id" alignment="CENTER" layoutX="549.0" layoutY="3.0" prefHeight="14.0" prefWidth="30.0" style="-fx-label-padding: 5 20;" text="ID" textFill="#343434">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

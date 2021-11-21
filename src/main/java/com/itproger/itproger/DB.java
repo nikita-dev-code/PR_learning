@@ -69,7 +69,7 @@ public class DB {
     }
 
     public ResultSet getArticles(){
-        String sql = "SELECT `title`, `intro` FROM `articles`";
+        String sql = "SELECT `id`,`title`, `intro` FROM `articles`";
         Statement statement = null;
         try {
             statement = getDbConnection().createStatement();
@@ -92,5 +92,58 @@ public class DB {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getId(String login){
+
+        String sql = "SELECT `id` FROM `users` WHERE `title` = ?";
+
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(sql);
+            prSt.setString(1,login);
+
+            ResultSet res = prSt.executeQuery();
+
+            return res.getInt("id");
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public String getTitle(int id) {
+        String sql = "SELECT `title` FROM `articles` WHERE `id` = ?";
+
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(sql);
+            prSt.setString(1, String.valueOf(id));
+
+            ResultSet res = prSt.executeQuery();
+            res.next();
+            return res.getString("title");
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public String getText(int id) {
+        String sql = "SELECT `text` FROM `articles` WHERE `id` = ?";
+
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(sql);
+            prSt.setString(1, String.valueOf(id));
+
+            ResultSet res = prSt.executeQuery();
+            res.next();
+            return res.getString("text");
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

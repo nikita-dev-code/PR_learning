@@ -13,12 +13,9 @@ import com.itproger.itproger.HelloApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -36,6 +33,7 @@ public class ArticlesPanelController {
     @FXML
     private VBox panelVBox;
 
+    static int globalId;
 
 
 
@@ -54,6 +52,10 @@ public class ArticlesPanelController {
             Label intro = (Label) node.lookup("#intro");
             intro.setText(resultSet.getString("intro"));
 
+            Label id = (Label) node.lookup("#id");
+            id.setText(resultSet.getString("id"));
+
+
             node.setOnMouseEntered(event -> {
                 node.setStyle("-fx-background-color: #707173");
             });
@@ -64,7 +66,23 @@ public class ArticlesPanelController {
 
             panelVBox.getChildren().add(node);
             panelVBox.setSpacing(10);
+
+            node.setOnMouseClicked(event -> {
+
+                globalId =Integer.parseInt(id.getText());
+
+                Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+                try {
+                    HelloApplication.setScene("article_show.fxml", stage);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            });
+
+
         }
+
 
 
         exit_btn.setOnAction(event -> {
