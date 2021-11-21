@@ -67,4 +67,30 @@ public class DB {
         }
         return false;
     }
+
+    public ResultSet getArticles(){
+        String sql = "SELECT `title`, `intro` FROM `articles`";
+        Statement statement = null;
+        try {
+            statement = getDbConnection().createStatement();
+            return statement.executeQuery(sql);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void addArticle(String title, String intro, String full_text) {
+        String sql = "INSERT INTO `articles` (`title`, `intro`, `text`) VALUES(?, ?, ?)";
+
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(sql);
+            prSt.setString(1, title);
+            prSt.setString(2, intro);
+            prSt.setString(3, full_text);
+            prSt.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }
