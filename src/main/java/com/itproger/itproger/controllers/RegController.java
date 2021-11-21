@@ -1,6 +1,8 @@
 package com.itproger.itproger.controllers;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.math.BigInteger;
 import java.net.URL;
 import java.security.MessageDigest;
@@ -9,6 +11,7 @@ import java.util.ResourceBundle;
 
 import com.itproger.itproger.DB;
 import com.itproger.itproger.HelloApplication;
+import com.itproger.itproger.models.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -85,6 +88,11 @@ public class RegController {
             auth_login.setText("");
             auth_pass.setText("");
             auth_btn.setText("Все готово :)");
+
+            FileOutputStream fos = new FileOutputStream("user.settings");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(new User(login));
+            oos.close();
 
             Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
             HelloApplication.setScene("articles-panel.fxml", stage);

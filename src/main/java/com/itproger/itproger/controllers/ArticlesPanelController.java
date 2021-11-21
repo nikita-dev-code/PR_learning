@@ -1,5 +1,6 @@
 package com.itproger.itproger.controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -38,8 +39,12 @@ public class ArticlesPanelController {
     }
 
     private void exitUser(ActionEvent event) throws IOException {
+        File file = new File("user.settings");
+        file.delete();
+
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
         HelloApplication.setScene("main.fxml", stage);
+
 
     }
 
